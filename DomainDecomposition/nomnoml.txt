@@ -1,3 +1,5 @@
+[Actor]
+
 [Faction | 
 Allies: Array(Faction)
 Enemies: Array(Faction)]
@@ -6,11 +8,18 @@ Enemies: Array(Faction)]
 [Actor]<:--[NPC]
 [Actor]<:--[Player]
 
-[NPC]+-[CombatAI | Targets: Array(Actor)]
+[NPC]+-[CombatAI | Targets: List(Actor)]
+
+[CombatSettings|
+SearchRadius
+SearchTime
+AttackRange]<-[CombatAI]
+
 [CombatAI]+-[CombatDecisionSelector]
 
 [CombatDecisionSelector]o-[<abstract> CombatAction]
 [CombatDecisionSelector]o-[<abstract> CombatCondition]
+[CombatDecisionSelector]o-[<abstract> CombatStyle]
 
 [CombatAction]<:-
 [ca_Patrol
@@ -29,8 +38,15 @@ cnd_AllyCorpseFound
 cnd_TargetIsEnemyFaction
 cnd_TargetFound
 cnd_TargetLost
+cnd_SearchTimeExpired
 cnd_ExplosiveNearby
 cnd_WeaponOutOfAmmo]
+
+[CombatStyle]<:-
+[cs_Cowardly
+cs_Cautious
+cs_Foolhardy
+cs_Brave]
 
 [Player]+-[Input]
 
