@@ -5,26 +5,33 @@ Enemies: Array(Faction)]
 [Actor]+-[Faction]
 [Actor]<:--[NPC]
 [Actor]<:--[Player]
-[NPC]+-[CombatAI]
 
-[CombatAI]
+[NPC]+-[CombatAI | Targets: Array(Actor)]
 [CombatAI]+-[CombatDecisionSelector]
 
-[CombatAI]+-[DetectionSystem]
-[CombatAI]+-[Targets | Array(Actor)]
 [CombatDecisionSelector]o-[<abstract> CombatAction]
 [CombatDecisionSelector]o-[<abstract> CombatCondition]
 
-[CombatAction]<:-[ca_Attack]
-[CombatAction]<:-[ca_Flee]
-[CombatAction]<:-[ca_Help]
-[CombatAction]<:-[ca_Search]
+[CombatAction]<:-
+[ca_Patrol
+ca_Attack
+ca_Reload
+ca_TakeCover
+ca_Flee
+ca_Search]
 
-[CombatCondition]<:-[cnd_ActorIsAttacked]
-[CombatCondition]<:-[cnd_ActorHealthLow]
-[CombatCondition]<:-[cnd_ActorLastStanding]
-[CombatCondition]<:-[cnd_AllyIsAttacked]
-[CombatCondition]<:-[cnd_TargetIsEnemyFaction]
-[CombatCondition]<:-[cnd_TargetLost]
+[CombatCondition]<:-
+[cnd_ActorIsAttacked
+cnd_ActorHealthLow
+cnd_ActorLastStanding
+cnd_AllyIsAttacked
+cnd_AllyCorpseFound
+cnd_TargetIsEnemyFaction
+cnd_TargetFound
+cnd_TargetLost
+cnd_ExplosiveNearby
+cnd_WeaponOutOfAmmo]
+
+[Player]+-[Input]
 
 //[separator]
