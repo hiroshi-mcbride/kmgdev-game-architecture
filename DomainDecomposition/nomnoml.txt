@@ -1,0 +1,6 @@
+[<actor> Player]
+[<actor> Raider]
+[<actor> Institute Courser]
+[<actor> Railroad Agent]
+
+//[separator]
