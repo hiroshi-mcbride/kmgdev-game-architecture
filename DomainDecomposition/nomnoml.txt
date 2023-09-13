@@ -51,3 +51,9 @@ cs_Brave]
 [Player]+-[Input]
 
 //[separator]
+// Scripts
+[ResourceManager]
+[ObjectPlacer| Place(); ChangePos(); CheckIfAbleToBuild(); ]
+[buildableObject]
+[IStatsdecreaser|ChooseStat();]
+[IStatsIncreaser|ChooseStat();]
