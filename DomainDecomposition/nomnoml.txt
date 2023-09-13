@@ -57,3 +57,8 @@ cs_Brave]
 [buildableObject]
 [IStatsdecreaser|ChooseStat();]
 [IStatsIncreaser|ChooseStat();]
+[IAutoProduceItem| Produce(<T> Item); ResourcesNeeded(); SendToStorage();]
+[LocalStorage| List<T>();]
+[IInteractable| DoSomething();]
+[ICraftingTable| ItemChooseMenu(); CheckEnoughResources(); ProduceItem();] 
+// Connections
