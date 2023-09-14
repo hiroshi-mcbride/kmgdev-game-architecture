@@ -51,14 +51,39 @@ cs_Brave]
 [Player]+-[Input]
 
 //[separator]
+
 // Scripts
+[ChooseBuildingMenu]
+[InputHandler]
 [ResourceManager]
-[ObjectPlacer| Place(); ChangePos(); CheckIfAbleToBuild(); ]
+[SettlementStatsManager]
+[ObjectPlacerTool| Place(); ChangePos(); CheckIfAbleToBuild(); ]
 [buildableObject]
 [IStatsdecreaser|ChooseStat();]
 [IStatsIncreaser|ChooseStat();]
 [IAutoProduceItem| Produce(<T> Item); ResourcesNeeded(); SendToStorage();]
 [LocalStorage| List<T>();]
 [IInteractable| DoSomething();]
-[ICraftingTable| ItemChooseMenu(); CheckEnoughResources(); ProduceItem();] 
+[ICraftingTable| ItemChooseMenu(); CheckEnoughResources(); ProduceItem();]
+[<note> BuildObject | dit zijn verschillende prefabs en door meerdere soorten; combinaties te maken van de interfaces toe te passen; krijg je een nieuw object]
+[<database> Resources]
+[<database> Stats]
+[SettlementBuildMechanic]
+
 // Connections
+[ChooseBuildingMenu] +- [ObjectPlacerTool]
+
+[InputHandler]--[ChooseBuildingMenu]
+[ChooseBuildingMenu]--[buildableObject] 
+
+[BuildObject] --[buildableObject] 
+[buildableObject] +-[IStatsdecreaser] 
+[buildableObject] +-[IStatsIncreaser] 
+[buildableObject] +-[IAutoProduceItem] 
+[buildableObject] +-[LocalStorage] 
+[buildableObject] +-[IInteractable] 
+[buildableObject] +-[ICraftingTable]
+[ResourceManager]<->[Resources]
+[SettlementStatsManager] <-> [Stats] 
+
+[SettlementBuildMechanic] --[InputHandler]
