@@ -4,12 +4,12 @@ using UnityEngine;
 public class ScreenToWorldspacePointer : MonoBehaviour
 {
     private Camera mainCamera;
-    private Func<LayerMask, Transform> onClickEventHandler;
+    private Func<EventLeftMouseButtonClicked, Transform> onClickEventHandler;
 
     private void Awake()
     {
-        onClickEventHandler = QueryPointerHit;
         mainCamera = Camera.main;
+        onClickEventHandler = QueryPointerHit;
     }
 
     private void OnEnable()
@@ -22,10 +22,10 @@ public class ScreenToWorldspacePointer : MonoBehaviour
         EventManager.Unsubscribe(typeof(EventLeftMouseButtonClicked), onClickEventHandler);
     }
 
-    private Transform QueryPointerHit(LayerMask _pointerHitMask)
+    private Transform QueryPointerHit(EventLeftMouseButtonClicked _clickEvent)
     {
         Ray cameraPointRay = mainCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(cameraPointRay, out RaycastHit pointerHit, 99.0f, _pointerHitMask))
+        if (Physics.Raycast(cameraPointRay, out RaycastHit pointerHit, 99.0f, _clickEvent.PointerHitMask))
         {
             return pointerHit.transform;
         }

@@ -25,6 +25,11 @@ public class Player : ActorBase
 
     protected override void Attack()
     {
-        EventManager.Invoke(new EventPlayerAttack(2.0f, attackHitMask));
+        EventLeftMouseButtonClicked clickEvent = new EventLeftMouseButtonClicked(attackHitMask);
+        Transform target = (Transform)EventManager.InvokeCallback(clickEvent);
+        if (target != null)
+        {
+            target.GetComponent<IDamageable>()?.TakeDamage(2.0f);
+        }
     }
 }
