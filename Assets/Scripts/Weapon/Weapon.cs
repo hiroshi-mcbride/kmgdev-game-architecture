@@ -16,6 +16,8 @@ public class Weapon : IWeapon
         Damage = _weaponData.Damage;
         FireRate = _weaponData.FireRate;
         fireRateTimer = new Timer(1/FireRate);
+        
+        // subscribe to fire input event?
     }
     
     public void Fire(float _delta)
@@ -23,7 +25,8 @@ public class Weapon : IWeapon
         fireRateTimer.Run(_delta, out bool isTimerExpired);
         if (isTimerExpired)
         {
-            // TODO: spawn projectile
+            //SimpleProjectile projectile = new SimpleProjectile();
+            //projectile.Create();
             Ammo -= 1;
             Debug.Log("Bang!");
 
