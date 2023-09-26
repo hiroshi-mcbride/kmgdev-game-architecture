@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour, IStateRunner
     private void Awake()
     {
         ObjectData = new Scratchpad();
+        
         fsm = new StateMachine(this);
         fsm.AddState(new PlayState(ObjectData, fsm));
         fsm.SwitchState(typeof(PlayState));
