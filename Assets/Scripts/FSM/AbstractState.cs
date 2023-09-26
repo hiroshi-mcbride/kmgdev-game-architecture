@@ -13,7 +13,8 @@ public abstract class AbstractState : IState
         OwnerStateMachine = _ownerStateMachine;
     }
 
-    public abstract void Enter();
-    public abstract void Update(float _delta);
-    public abstract void Exit();
+    public virtual void Enter() {}
+    public virtual void Update(float _delta) {}
+    public virtual void FixedUpdate(float _fixedDelta) {}
+    public virtual void Exit() {}
 }

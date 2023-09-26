@@ -9,18 +9,19 @@ public class StateMachine
     private Dictionary<Type, IState> states = new Dictionary<Type, IState>();
     public IState CurrentState { get; private set; }
 
-    public StateMachine(IStateRunner _owner, params IState[] _states)
+    public StateMachine(IStateRunner _owner)
     {
         Owner = _owner;
-        foreach (IState s in _states)
-        {
-            states.TryAdd(s.GetType(), s);
-        }
     }
 
     public void Update(float _delta)
     {
         CurrentState?.Update(_delta);
+    }
+
+    public void FixedUpdate(float _fixedDelta)
+    {
+        CurrentState?.FixedUpdate(_fixedDelta);
     }
 
     public void AddState(IState _state)
