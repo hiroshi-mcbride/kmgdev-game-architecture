@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour, IStateRunner
     private void Awake()
     {
         ObjectData = new Scratchpad();
+        ObjectData.Create(new ScoreCounter());
         
         fsm = new StateMachine(this);
         fsm.AddState(new PlayState(ObjectData, fsm));

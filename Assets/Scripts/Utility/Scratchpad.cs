@@ -5,26 +5,56 @@ using UnityEngine;
 
 public class Scratchpad
 {
-    private Dictionary<Type, object> data = new Dictionary<Type, object>();
+    private Dictionary<Type, object> pad = new Dictionary<Type, object>();
 
+    public void Create(object _data)
+    {
+        bool keyIsAvailable = pad.TryAdd(_data.GetType(), _data);
+        
+        if (!keyIsAvailable)
+        {
+            Debug.LogWarning($"Can't create: Scratchpad already contains entry of type {_data.GetType()}.");
+        }
+    }
+    
     public object Read(Type _type)
     {
-        bool containsValue = data.TryGetValue(_type, out object value);
+        bool containsValue = pad.TryGetValue(_type, out object value);
+        
         if (!containsValue)
         {
-            Debug.LogWarning($"Scratchpad does not contain entry of type {_type}. Ensure null safety.");
+            Debug.LogWarning($"Can't read: Scratchpad does not contain entry of type {_type}. Returning null.");
         }
 
         return value;
     }
 
-    public void Write(object _data, bool _overwrite = true)
+    public void Update(object _data)
     {
-        bool keyIsAvailable = data.TryAdd(_data.GetType(), _data);
-        if (!keyIsAvailable)
+        Type type = _data.GetType();
+        bool entryExists = pad.ContainsKey(type);
+        
+        if (entryExists)
         {
-            Debug.LogWarning($"Scratchpad already contains entry of type {_data.GetType()}.");
-            if (_overwrite) data[_data.GetType()] = _data;
+            pad[_data.GetType()] = _data;
+        }
+        else
+        {
+            Debug.LogWarning($"Can't update: Scratchpad does not contain entry of type {_data.GetType()}.");
+        }
+    }
+
+    public void Delete(Type _type)
+    {
+        bool containsType = pad.ContainsKey(_type);
+        
+        if (containsType)
+        {
+            pad.Remove(_type);
+        }
+        else
+        {
+            Debug.LogWarning($"Can't delete: Scratchpad does not contain entry of type {_type}.");
         }
     }
 }
