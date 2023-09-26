@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 
-public struct EventLeftMouseButtonClicked : ICallback
+public struct MousePointerQueryEvent
 {
     public LayerMask PointerHitMask { get; }
-
-    public EventLeftMouseButtonClicked(LayerMask _pointerHitMask)
+    
+    public MousePointerQueryEvent(LayerMask _pointerHitMask)
     {
         PointerHitMask = _pointerHitMask;
     }
-
 }
