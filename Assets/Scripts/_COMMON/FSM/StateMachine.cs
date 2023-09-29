@@ -5,23 +5,25 @@ using UnityEngine;
 
 public class StateMachine
 {
-    public IStateRunner Owner { get; }
     private Dictionary<Type, IState> states = new Dictionary<Type, IState>();
-    public IState CurrentState { get; private set; }
+    private IState currentState;
 
-    public StateMachine(IStateRunner _owner)
+    public StateMachine(params IState[] _states)
     {
-        Owner = _owner;
+        foreach (IState s in _states)
+        {
+            states.TryAdd(s.GetType(), s);
+        }
     }
 
     public void Update(float _delta)
     {
-        CurrentState?.Update(_delta);
+        currentState?.Update(_delta);
     }
 
     public void FixedUpdate(float _fixedDelta)
     {
-        CurrentState?.FixedUpdate(_fixedDelta);
+        currentState?.FixedUpdate(_fixedDelta);
     }
 
     public void AddState(IState _state)
@@ -31,8 +33,8 @@ public class StateMachine
 
     public void SwitchState(Type _newState)
     {
-        CurrentState?.Exit();
-        CurrentState = states[_newState];
-        CurrentState?.Enter();
+        currentState?.Exit();
+        currentState = states[_newState];
+        currentState?.Enter();
     }
 }

@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour, IStateRunner
         ObjectData = new Scratchpad();
         ObjectData.Create(new ScoreCounter());
         
-        fsm = new StateMachine(this);
+        fsm = new StateMachine();
         fsm.AddState(new PlayState(ObjectData, fsm));
         fsm.SwitchState(typeof(PlayState));
     }
