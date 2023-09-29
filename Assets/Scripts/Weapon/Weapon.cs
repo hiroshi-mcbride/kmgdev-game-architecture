@@ -4,20 +4,17 @@ using UnityEngine;
 
 public class Weapon : IWeapon
 {
-    public int Ammo { get; private set; }
-    public float Damage { get; }
-    public float FireRate { get; }
-
+    private int ammo;
+    private float damage;
+    private float fireRate;
     private Timer fireRateTimer;
 
     public Weapon(WeaponData _weaponData)
     {
-        Ammo = _weaponData.Ammo;
-        Damage = _weaponData.Damage;
-        FireRate = _weaponData.FireRate;
-        fireRateTimer = new Timer(1/FireRate);
-        
-        // subscribe to fire input event?
+        ammo = _weaponData.Ammo;
+        damage = _weaponData.Damage;
+        fireRate = _weaponData.FireRate;
+        fireRateTimer = new Timer(1/fireRate);
     }
     
     public void Fire(float _delta)
@@ -27,10 +24,10 @@ public class Weapon : IWeapon
         {
             //SimpleProjectile projectile = new SimpleProjectile();
             //projectile.Create();
-            Ammo -= 1;
+            ammo -= 1;
             Debug.Log("Bang!");
 
-            if (Ammo <= 0)
+            if (ammo <= 0)
             {
                 //EventManager.Invoke(new WeaponOutOfAmmoEvent());
             }
