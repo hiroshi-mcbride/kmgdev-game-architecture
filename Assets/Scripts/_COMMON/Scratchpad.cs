@@ -17,16 +17,16 @@ public class Scratchpad
         }
     }
     
-    public object Read(Type _type)
+    public T Read<T>()
     {
-        bool containsValue = pad.TryGetValue(_type, out object value);
+        bool containsValue = pad.TryGetValue(typeof(T), out object value);
         
         if (!containsValue)
         {
-            Debug.LogWarning($"Can't read: Scratchpad does not contain entry of type {_type}. Returning null.");
+            Debug.LogWarning($"Can't read: Scratchpad does not contain entry of type {typeof(T)}. Returning null.");
         }
 
-        return value;
+        return (T)value;
     }
 
     public void Update(object _data)

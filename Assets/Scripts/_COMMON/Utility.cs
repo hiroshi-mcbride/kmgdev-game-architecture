@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public static class Util
+public static class Utility
 {
     /// <summary>
     /// Picks a random item from the list and returns it
