@@ -2,9 +2,8 @@
 
 public class SimpleProjectile : BaseActor, IProjectile
 {
-    public override void Create()
+    public SimpleProjectile()
     {
-        base.Create();
         
         // instead of adding each component separately, maybe read everything from a ScriptableObject
         ActorGameObject.AddComponent<Rigidbody>();

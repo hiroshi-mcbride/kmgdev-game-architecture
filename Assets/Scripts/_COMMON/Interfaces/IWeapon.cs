@@ -1,4 +1,6 @@
 ﻿public interface IWeapon
 {
-    void Fire(float _delta);
+    bool IsAutomatic { get; }
+    void Fire();
+    void RunFireRateTimer(float _delta);
 }

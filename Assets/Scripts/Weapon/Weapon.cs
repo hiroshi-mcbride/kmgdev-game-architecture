@@ -4,23 +4,26 @@ using UnityEngine;
 
 public class Weapon : IWeapon
 {
+    public bool IsAutomatic { get; }
     private int ammo;
     private float damage;
     private float fireRate;
     private Timer fireRateTimer;
+    private bool canFire;
 
     public Weapon(WeaponData _weaponData)
     {
         ammo = _weaponData.Ammo;
         damage = _weaponData.Damage;
         fireRate = _weaponData.FireRate;
+        IsAutomatic = _weaponData.IsAutomatic;
         fireRateTimer = new Timer(1/fireRate);
     }
-    
-    public void Fire(float _delta)
+
+
+    public void Fire()
     {
-        fireRateTimer.Run(_delta, out bool isTimerExpired);
-        if (isTimerExpired)
+        if (canFire)
         {
             //SimpleProjectile projectile = new SimpleProjectile();
             //projectile.Create();
@@ -32,5 +35,10 @@ public class Weapon : IWeapon
                 //EventManager.Invoke(new WeaponOutOfAmmoEvent());
             }
         }
+    }
+
+    public void RunFireRateTimer(float _delta)
+    {
+        fireRateTimer.Run(_delta, out canFire);
     }
 }
