@@ -37,4 +37,9 @@ public class StateMachine
         currentState = states[_newState];
         currentState?.Enter();
     }
+
+    ~StateMachine()
+    {
+        currentState?.Exit();
+    }
 }
