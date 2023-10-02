@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// The primary gameplay loop is run from PlayState.
+/// </summary>
 public class PlayState : AbstractState
 {
     private WeaponHandler weaponHandler;
@@ -9,6 +12,7 @@ public class PlayState : AbstractState
     public override void Enter()
     {
         base.Enter();
+        OwnerData.Create(new ScoreCounter());
         weaponHandler = new WeaponHandler();
         weaponHandler.EquipWeapon();
     }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public interface IActor : IUpdateable
+public interface IActor
 {
     public GameObject Actor { get; }
 }

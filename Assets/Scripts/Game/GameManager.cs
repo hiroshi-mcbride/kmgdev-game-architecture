@@ -1,9 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 /// <summary>
-/// 
+/// Game root. Any UnityEngine callbacks are run through here and delegated to other classes, mainly a State Machine.
 /// </summary>
 public class GameManager : MonoBehaviour, IStateRunner
 {
