@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Keeps track of the currently equipped weapon and fires it on input
+/// Keeps a reference to the currently equipped weapon and fires it on input
 /// </summary>
 
 public class WeaponHandler : IUpdateable

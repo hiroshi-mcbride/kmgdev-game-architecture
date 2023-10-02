@@ -6,19 +6,18 @@ using UnityEngine;
 public class Weapon : BaseActor, IWeapon
 {
     public bool IsAutomatic { get; }
+    private WeaponData weaponData;
     private int ammo;
-    private float damage;
     private Timer fireRateTimer;
     private bool canFire = true;
 
     public Weapon()
     {
-        var weaponData = Resources.Load<WeaponData>("PistolData");
-        Actor = GameObject.Instantiate(weaponData.Model, Camera.main.transform);
+        weaponData = Resources.Load<WeaponData>("PistolData");
+        Actor = GameObject.Instantiate(weaponData.Prefab, Camera.main.transform);
         Actor.transform.localPosition = new Vector3(.8f, -0.7f, 1.7f);
         Actor.transform.localRotation = Quaternion.Euler(.0f, -90.0f, .0f);
         ammo = weaponData.Ammo;
-        damage = weaponData.Damage;
         IsAutomatic = weaponData.IsAutomatic;
         Action enableFire = () => canFire = true;
         fireRateTimer = new Timer(1 / weaponData.FireRate, enableFire, false);
@@ -31,16 +30,19 @@ public class Weapon : BaseActor, IWeapon
         {
             return;
         }
-        
-        //SimpleProjectile projectile = new SimpleProjectile();
-        ammo -= 1;
-        Debug.Log("Bang!");
-        fireRateTimer.Start();
-        canFire = false;
 
-        if (ammo <= 0)
+        if (ammo > 0)
         {
-            //EventManager.Invoke(new WeaponOutOfAmmoEvent());
+            var projectile = new Projectile(weaponData);
+            Debug.Log("Bang!");
+            fireRateTimer.Start();
+            canFire = false;
+            ammo -= 1;
+            
+        }
+        else
+        {
+            
             
         }
     }

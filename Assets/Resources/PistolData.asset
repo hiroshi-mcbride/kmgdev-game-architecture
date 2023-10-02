@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d155394abe10449b339b3743d4f3c9, type: 3}
   m_Name: PistolData
   m_EditorClassIdentifier: 
-  Model: {fileID: 3832703582600972128, guid: bceefb2a39f6db74d9bc9d006687b7f1, type: 3}
-  Ammo: 99
+  Prefab: {fileID: 3832703582600972128, guid: bceefb2a39f6db74d9bc9d006687b7f1, type: 3}
+  Ammo: 12
   Damage: 10
-  FireRate: 20
-  IsAutomatic: 1
+  FireRate: 8
+  IsAutomatic: 0
+  BulletPrefab: {fileID: 959458154241005023, guid: 279b3ef4ca7a94641a3f30cc91df9700, type: 3}
+  BulletSpeed: 2400
