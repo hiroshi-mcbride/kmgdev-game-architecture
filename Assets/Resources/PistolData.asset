@@ -15,5 +15,5 @@ MonoBehaviour:
   Model: {fileID: 3832703582600972128, guid: bceefb2a39f6db74d9bc9d006687b7f1, type: 3}
   Ammo: 99
   Damage: 10
-  FireRate: 5
-  IsAutomatic: 0
+  FireRate: 20
+  IsAutomatic: 1

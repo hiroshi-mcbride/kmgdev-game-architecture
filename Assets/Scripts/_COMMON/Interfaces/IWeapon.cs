@@ -2,5 +2,5 @@
 {
     bool IsAutomatic { get; }
     void Fire();
-    void RunFireRateTimer(float _delta);
+    void Update(float _delta);
 }

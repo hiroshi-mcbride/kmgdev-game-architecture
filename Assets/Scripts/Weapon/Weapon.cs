@@ -1,44 +1,52 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : IWeapon
+public class Weapon : BaseActor, IWeapon
 {
     public bool IsAutomatic { get; }
     private int ammo;
     private float damage;
-    private float fireRate;
     private Timer fireRateTimer;
-    private bool canFire;
+    private bool canFire = true;
 
-    public Weapon(WeaponData _weaponData)
+    public Weapon()
     {
-        ammo = _weaponData.Ammo;
-        damage = _weaponData.Damage;
-        fireRate = _weaponData.FireRate;
-        IsAutomatic = _weaponData.IsAutomatic;
-        fireRateTimer = new Timer(1/fireRate);
+        var weaponData = Resources.Load<WeaponData>("PistolData");
+        Actor = GameObject.Instantiate(weaponData.Model, Camera.main.transform);
+        Actor.transform.localPosition = new Vector3(.8f, -0.7f, 1.7f);
+        Actor.transform.localRotation = Quaternion.Euler(.0f, -90.0f, .0f);
+        ammo = weaponData.Ammo;
+        damage = weaponData.Damage;
+        IsAutomatic = weaponData.IsAutomatic;
+        Action enableFire = () => canFire = true;
+        fireRateTimer = new Timer(1 / weaponData.FireRate, enableFire, false);
     }
 
 
     public void Fire()
     {
-        if (canFire)
+        if (!canFire)
         {
-            //SimpleProjectile projectile = new SimpleProjectile();
-            //projectile.Create();
-            ammo -= 1;
-            Debug.Log("Bang!");
+            return;
+        }
+        
+        //SimpleProjectile projectile = new SimpleProjectile();
+        ammo -= 1;
+        Debug.Log("Bang!");
+        fireRateTimer.Start();
+        canFire = false;
 
-            if (ammo <= 0)
-            {
-                //EventManager.Invoke(new WeaponOutOfAmmoEvent());
-            }
+        if (ammo <= 0)
+        {
+            //EventManager.Invoke(new WeaponOutOfAmmoEvent());
+            
         }
     }
 
-    public void RunFireRateTimer(float _delta)
+    public override void Update(float _delta)
     {
-        fireRateTimer.Run(_delta, out canFire);
+        fireRateTimer.Update(_delta);
     }
 }

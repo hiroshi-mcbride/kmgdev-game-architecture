@@ -1,17 +1,14 @@
 ﻿using UnityEngine;
-
 public class SimpleProjectile : BaseActor, IProjectile
 {
     public SimpleProjectile()
     {
-        
-        // instead of adding each component separately, maybe read everything from a ScriptableObject
-        ActorGameObject.AddComponent<Rigidbody>();
+        var rigidbody = Actor.GetComponent<Rigidbody>();
+        rigidbody.AddForce(rigidbody.transform.forward * 60.0f);
     }
 
     public override void Update(float _delta)
     {
-        
     }
 
     public void Hit()

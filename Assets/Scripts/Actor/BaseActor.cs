@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
+using System.Collections;
 
-public abstract class BaseActor : IUpdateable
+/// <summary>
+/// Base type for any object in the scene that can run some kind of logic each frame
+/// </summary>
+public abstract class BaseActor : IActor
 {
-    protected GameObject ActorGameObject;
-    public abstract void Update(float _delta);
+    public GameObject Actor { get; protected set; }
 
+    public abstract void Update(float _delta);
 }

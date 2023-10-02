@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class AbstractState : IState
 {
     public Scratchpad OwnerData { get; }
-    protected StateMachine OwnerStateMachine;
+    protected StateMachine OwnerStateMachine { get; }
 
     protected AbstractState(Scratchpad _ownerData, StateMachine _ownerStateMachine)
     {

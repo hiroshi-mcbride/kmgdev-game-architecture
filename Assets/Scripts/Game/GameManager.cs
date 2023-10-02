@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 
+/// </summary>
 public class GameManager : MonoBehaviour, IStateRunner
 {
     public Scratchpad ObjectData { get; private set; }
@@ -12,10 +14,11 @@ public class GameManager : MonoBehaviour, IStateRunner
     private void Awake()
     {
         ObjectData = new Scratchpad();
-        ObjectData.Create(new ScoreCounter());
-        
         fsm = new StateMachine();
+        fsm.AddState(new BeginState(ObjectData, fsm));
         fsm.AddState(new PlayState(ObjectData, fsm));
+        fsm.AddState(new WinState(ObjectData, fsm));
+        fsm.AddState(new LoseState(ObjectData, fsm));
         fsm.SwitchState(typeof(PlayState));
     }
 
