@@ -1,4 +1,4 @@
 ﻿public interface IProjectile
 {
-    public void Hit();
+    void OnHit();
 }

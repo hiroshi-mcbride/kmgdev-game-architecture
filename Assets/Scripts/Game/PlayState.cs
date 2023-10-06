@@ -12,9 +12,8 @@ public class PlayState : AbstractState
     public override void Enter()
     {
         base.Enter();
-        OwnerData.Create(new ScoreCounter());
-        weaponHandler = new WeaponHandler();
-        weaponHandler.EquipWeapon();
+        OwnerData.Write("ScoreCounter", new ScoreCounter());
+        weaponHandler = new WeaponHandler(OwnerData.Read<WeaponData[]>("weaponDataAssets"));
     }
 
     public override void Update(float _delta)

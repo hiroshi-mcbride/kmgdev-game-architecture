@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -7,6 +8,8 @@ public class GameManager : MonoBehaviour, IStateRunner
 {
     public Scratchpad ObjectData { get; private set; }
 
+    [SerializeField] private WeaponData[] weaponDataAssets;
+    
     private StateMachine fsm;
 
     private void Awake()

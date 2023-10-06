@@ -3,20 +3,22 @@ using UnityEngine;
 
 public class Timer : IUpdateable
 {
+    public bool IsActive { get; set; } = true;
     private float length;
+    private bool isLooping;
     private float currentTime;
-    private bool loop;
     private bool isStarted;
     private Delegate onExpired;
 
-    public Timer(float _length, Delegate _onExpired, bool _startImmediately = true, bool _loop = false)
+    public Timer(float _length, Delegate _onExpired, bool _startImmediately = true, bool _isLooping = false)
     {
         length = _length;
         onExpired = _onExpired;
         isStarted = _startImmediately;
-        loop = _loop;
+        isLooping = _isLooping;
     }
-    
+
+
     public void Update(float _delta)
     {
         if (isStarted)
@@ -26,7 +28,13 @@ public class Timer : IUpdateable
     }
 
     public void Start() => isStarted = true;
-
+    public void Pause() => isStarted = false;
+    public void Stop()
+    {
+        isStarted = false;
+        currentTime = .0f;
+    }
+    
     private void RunTimer(float _delta)
     {
         if (currentTime < length)
@@ -35,7 +43,7 @@ public class Timer : IUpdateable
         }
         else
         {
-            if (!loop) isStarted = false;
+            if (!isLooping) isStarted = false;
             currentTime = .0f;
             onExpired.DynamicInvoke();
         }

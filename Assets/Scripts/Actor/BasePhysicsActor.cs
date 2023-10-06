@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Base type for any object in the scene with physics properties that can run physics logic each frame
+/// Base type for any actor with physics properties that can run physics logic each FixedUpdate frame
 /// </summary>
-public abstract class BasePhysicsActor : IPhysicsActor, IFixedUpdateable
+public abstract class BasePhysicsActor : BaseActor, IFixedUpdateable
 {
-    public GameObject Actor { get; protected set; }
     public Rigidbody PhysicsBody { get; protected set; }
 
-    public abstract void FixedUpdate(float _fixedDelta);
+    public virtual void FixedUpdate(float _fixedDelta) { }
+
 }

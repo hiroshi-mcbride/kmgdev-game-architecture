@@ -11,9 +11,9 @@ public class Weapon : BaseActor, IWeapon
     private Timer fireRateTimer;
     private bool canFire = true;
 
-    public Weapon()
+    public Weapon(WeaponData _weaponData)
     {
-        weaponData = Resources.Load<WeaponData>("PistolData");
+        weaponData = _weaponData;
         Actor = GameObject.Instantiate(weaponData.Prefab, Camera.main.transform);
         Actor.transform.localPosition = new Vector3(.8f, -0.7f, 1.7f);
         Actor.transform.localRotation = Quaternion.Euler(.0f, -90.0f, .0f);
@@ -22,7 +22,6 @@ public class Weapon : BaseActor, IWeapon
         Action enableFire = () => canFire = true;
         fireRateTimer = new Timer(1 / weaponData.FireRate, enableFire, false);
     }
-
 
     public void Fire()
     {
@@ -33,16 +32,14 @@ public class Weapon : BaseActor, IWeapon
 
         if (ammo > 0)
         {
-            var projectile = new Projectile(weaponData);
+            Projectile projectile = new(weaponData);
             Debug.Log("Bang!");
             fireRateTimer.Start();
             canFire = false;
             ammo -= 1;
-            
         }
         else
         {
-            
             
         }
     }

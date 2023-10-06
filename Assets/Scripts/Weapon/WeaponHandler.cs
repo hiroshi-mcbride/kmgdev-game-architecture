@@ -9,24 +9,35 @@ using UnityEngine;
 
 public class WeaponHandler : IUpdateable
 {
-    private IWeapon currentWeapon;
+    public bool IsActive { get; set; } = true;
+    
+    private IWeapon equippedWeapon;
+    public WeaponHandler(WeaponData[] _weaponDataObjects)
+    {
+        foreach (WeaponData weaponData in _weaponDataObjects)
+        {
+            
+        }
+    }
+
 
     public void Update(float _delta)
     {
-        if (currentWeapon == null)
+        if (equippedWeapon == null)
         {
             return;
         }
-        currentWeapon.Update(_delta);
+        equippedWeapon.Update(_delta);
 
-        if (currentWeapon.IsAutomatic ? Input.GetMouseButton(0) : Input.GetMouseButtonDown(0))
+        if (equippedWeapon.IsAutomatic ? Input.GetMouseButton(0) : Input.GetMouseButtonDown(0))
         {
-            currentWeapon.Fire();
+            equippedWeapon.Fire();
         }
     }
 
-    public void EquipWeapon()
+    private void EquipWeapon(int _n)
     {
-        currentWeapon = new Weapon();
+        //currentWeapon = new Weapon();
     }
+
 }

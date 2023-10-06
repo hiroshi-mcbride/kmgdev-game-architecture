@@ -1,59 +1,67 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Usable by any class to store data of any kind
+/// </summary>
 public class Scratchpad
 {
-    private Dictionary<Type, object> pad = new Dictionary<Type, object>();
+    private Dictionary<string, object> pad = new();
 
-    public void Create(object _data)
+    public void Write(string _name, object _data, bool _overwrite = false)
     {
-        bool keyIsAvailable = pad.TryAdd(_data.GetType(), _data);
+        bool keyIsAvailable = pad.TryAdd(_name, _data);
         
         if (!keyIsAvailable)
         {
-            Debug.LogWarning($"Can't create: Scratchpad already contains entry of type {_data.GetType()}.");
+            if (_overwrite)
+            {
+                pad[_name] = _data;
+            }
+            else
+            {
+                Debug.LogWarning($"Can't write: Scratchpad already contains entry with name {_name}. " +
+                                 $"Overwrite is false.");
+            }
         }
     }
     
-    public T Read<T>()
+    public T Read<T>(string _name)
     {
-        bool containsValue = pad.TryGetValue(typeof(T), out object value);
+        bool containsValue = pad.TryGetValue(_name, out object value);
         
         if (!containsValue)
         {
-            Debug.LogWarning($"Can't read: Scratchpad does not contain entry of type {typeof(T)}. Returning null.");
+            Debug.LogError($"Can't read: Scratchpad does not contain entry with name {_name}.");
+            return default;
+        }
+
+        if (value == null)
+        {
+            Debug.LogError($"Can't read: Scratchpad entry with name {_name} is null.");
+            return default;
+        }
+
+        if (value.GetType() != typeof(T))
+        {
+            Debug.LogError($"Can't read: Type mismatch between {typeof(T)} and entry with name {_name}.");
+            return default;
         }
 
         return (T)value;
     }
 
-    public void Update(object _data)
+    public void Delete(string _name)
     {
-        Type type = _data.GetType();
-        bool entryExists = pad.ContainsKey(type);
-        
-        if (entryExists)
-        {
-            pad[_data.GetType()] = _data;
-        }
-        else
-        {
-            Debug.LogWarning($"Can't update: Scratchpad does not contain entry of type {_data.GetType()}.");
-        }
-    }
-
-    public void Delete(Type _type)
-    {
-        bool containsType = pad.ContainsKey(_type);
+        bool containsType = pad.ContainsKey(_name);
         
         if (containsType)
         {
-            pad.Remove(_type);
+            pad.Remove(_name);
         }
         else
         {
-            Debug.LogWarning($"Can't delete: Scratchpad does not contain entry of type {_type}.");
+            Debug.LogWarning($"Can't delete: Scratchpad does not contain entry with name {_name}.");
         }
     }
 }

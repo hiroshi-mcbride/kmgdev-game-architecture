@@ -10,14 +10,21 @@ public class Projectile : BasePhysicsActor, IProjectile
         Actor.transform.rotation = Quaternion.Euler(mainCamera.forward);
         PhysicsBody = Actor.GetComponent<Rigidbody>();
         PhysicsBody.AddForce(Actor.transform.forward * _weaponData.BulletSpeed);
-    }
-    
-    public void Hit()
-    {
         
     }
 
     public override void FixedUpdate(float _fixedDelta)
+    {
+        Collider[] hitColliders = new Collider[8];
+        int numColliders = Physics.OverlapSphereNonAlloc(Actor.transform.position, 0.5f, hitColliders);
+        for (int i = 0; i < numColliders; i++)
+        {
+            
+        }
+
+    }
+
+    public void OnHit()
     {
         
     }

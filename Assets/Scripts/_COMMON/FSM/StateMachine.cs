@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class StateMachine
 {
-    private Dictionary<Type, IState> states = new Dictionary<Type, IState>();
+    private Dictionary<Type, IState> states = new();
     private IState currentState;
 
     public StateMachine(params IState[] _states)
